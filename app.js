@@ -1,3 +1,7 @@
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+})
+
 document.addEventListener("DOMContentLoaded", () => {
   const setWidth = () => {
     const scrollbarWidth =
@@ -17,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const unlockScroll = bodyScrollLock.clearAllBodyScrollLocks;
 
   window.activeModal = null;
+  window.prevModal = null;
 
   function openModal(id, event) {
     const modal = document.querySelector(`.js-modal${id}`);
@@ -64,9 +69,17 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.remove("active");
 
     window.activeModal = null;
+   
 
     const closeModalEvent = new CustomEvent("closemodal");
     document.dispatchEvent(closeModalEvent);
+
+    if (modal.classList.contains('js-restore-prev-modal') && window.prevModal) {
+        console.log('Prev modal id', `#${window.prevModal.id}`);
+        openModal(`#${window.prevModal.id}`)
+    } else {
+        window.prevModal = modal;
+    }
   }
 
   window.openModal = openModal;

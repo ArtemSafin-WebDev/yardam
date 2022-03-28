@@ -47,6 +47,10 @@
   padding: 20px;
 }
 
+body:not(.loaded) .help-modal {
+  display: none;
+}
+
 @media screen and (max-width: 640px) {
   .help-modal {
     padding: 10px;
@@ -89,7 +93,6 @@
   border-radius: 50px;
   color: #4a4848;
   padding: 50px 25px;
-  font-family: "Roboto", sans-serif;
   padding-bottom: 130px;
   position: relative;
   z-index: 1;
@@ -320,9 +323,13 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 22px;
@@ -351,6 +358,9 @@
     min-height: 75px;
     padding-right: 80px;
     border-radius: 15px;
+  }
+  .help-modal__choose-step-link br {
+    display: none;
   }
 }
 
@@ -905,6 +915,7 @@ textarea.help-modal__get-help-form-input {
 
 .help-modal__check-number-status--red {
   color: #ff4343;
+  border-color: #ff4343;
 }
 
 .help-modal__check-number-status.shown {
@@ -940,7 +951,7 @@ textarea.help-modal__get-help-form-input {
   }
 }
 
-.help-modal__check-number-input.error {
+.help-modal__check-number-input.request-error {
   color: #ff4343;
 }
 
@@ -1003,5 +1014,20 @@ textarea.help-modal__get-help-form-input {
   .help-modal__inner--thanks {
     padding-bottom: 50px;
   }
+}
+
+.help-modal__choose-step-link-shifted {
+  margin-left: -17px;
+}
+
+@media screen and (max-width: 640px) {
+  .help-modal__choose-step-link-shifted {
+    margin-left: 0;
+    display: contents;
+  }
+}
+
+.help-modal__inner--how-it-works {
+  max-width: 680px;
 }
 /*# sourceMappingURL=styles.css.map */

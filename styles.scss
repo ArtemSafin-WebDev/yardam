@@ -41,6 +41,10 @@
   -ms-overflow-style: none;
   padding: 20px;
 
+  body:not(.loaded) & {
+      display: none;
+  }
+
   @media screen and (max-width: 640px) {
     padding: 10px;
   }
@@ -78,7 +82,6 @@
   border-radius: 50px;
   color: #4a4848;
   padding: 50px 25px;
-  font-family: "Roboto", sans-serif;
   padding-bottom: 130px;
   position: relative;
   z-index: 1;
@@ -249,7 +252,8 @@
 
 .help-modal__choose-step-link {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   box-sizing: border-box;
   border-radius: 22px;
   font-style: normal;
@@ -274,6 +278,9 @@
     min-height: 75px;
     padding-right: 80px;
     border-radius: 15px;
+    br {
+        display: none;
+    }
   }
   &:link,
   &:visited {
@@ -714,6 +721,7 @@ textarea.help-modal__get-help-form-input {
 
   &--red {
     color: #ff4343;
+    border-color: #ff4343;
   }
 
   &.shown {
@@ -745,7 +753,7 @@ textarea.help-modal__get-help-form-input {
     font-size: 17px;
   }
 
-  &.error {
+  &.request-error {
     color: #ff4343;
   }
 
@@ -801,4 +809,17 @@ textarea.help-modal__get-help-form-input {
   @media screen and (max-width: 640px) {
     padding-bottom: 50px;
   }
+}
+
+.help-modal__choose-step-link-shifted {
+  margin-left: -17px;
+  @media screen and (max-width: 640px) {
+    margin-left: 0;
+    display: contents;
+  }
+}
+
+
+.help-modal__inner--how-it-works {
+    max-width: 680px;
 }
