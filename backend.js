@@ -6,17 +6,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+
       if ($(form).parsley().isValid()) {
-        form.reset();
-        $(form).parsley().reset();
-        window.openModal("#get-help-success");
+        const url = form.action;
+        const formData = new FormData(form);
+        const errorContainer = form.querySelector(".help-modal__get-error");
+
+        fetch(url, {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw response;
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Data", data);
+            if (data.success == true) {
+              form.reset();
+              $(form).parsley().reset();
+              console.log("Opening modal");
+              window.openModal("#get-help-success");
+              errorContainer.style.display = "none";
+              errorContainer.textContent = "";
+            } else {
+              $(form).parsley().reset();
+              errorContainer.style.display = "block";
+              errorContainer.textContent = data.error;
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            $(form).parsley().reset();
+            errorContainer.style.display = "block";
+            errorContainer.textContent = err.status + " : " + err.statusText;
+          });
       }
     });
   }
   const thanksForm = document.querySelector("#thanks-form");
 
   if (thanksForm) {
-    const form = helpForm;
+    const form = thanksForm;
 
     const input = thanksForm.querySelector("input");
     const submitBtn = thanksForm.querySelector('button[type="submit"]');
@@ -26,6 +59,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const statuses = [statusFound, statusError, statusNotFound];
 
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if ($(form).parsley().isValid()) {
+        form.reset();
+        $(form).parsley().reset();
+        window.openModal("#thanks-success");
+      }
+    });
+
     input.addEventListener("input", () => {
       if (!input.value.trim()) {
         submitBtn.disabled = true;
@@ -33,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         statuses.forEach((status) => status.classList.remove("shown"));
         return;
       }
-      
+
       const formData = new FormData(form);
 
       const url = form.action;
@@ -75,15 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
           statusError.classList.add("shown");
           console.error(err);
         });
-    });
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if ($(form).parsley().isValid()) {
-        form.reset();
-        $(form).parsley().reset();
-        window.openModal("#thanks-success");
-      }
     });
   }
 });

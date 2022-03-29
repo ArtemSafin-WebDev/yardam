@@ -9,7 +9,7 @@
   line-height: 19px;
   display: inline-block;
   text-decoration: none;
-
+  font-family: sans-serif;
   &:hover,
   &:active {
     color: #27ae60;
@@ -40,9 +40,9 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 20px;
-
+  font-family: sans-serif;
   body:not(.loaded) & {
-      display: none;
+    display: none;
   }
 
   @media screen and (max-width: 640px) {
@@ -279,7 +279,7 @@
     padding-right: 80px;
     border-radius: 15px;
     br {
-        display: none;
+      display: none;
     }
   }
   &:link,
@@ -819,7 +819,15 @@ textarea.help-modal__get-help-form-input {
   }
 }
 
-
 .help-modal__inner--how-it-works {
-    max-width: 680px;
+  max-width: 680px;
+}
+
+.help-modal__get-error {
+  font-size: 12px;
+  line-height: 1.2;
+  margin-top: 8px;
+  list-style: none;
+  color: #ff4343;
+  margin-top: 25px;
 }

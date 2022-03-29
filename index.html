@@ -130,11 +130,12 @@
               Заполните форму, чтобы получить помощь
             </h3>
             <form
-              action="/"
+              action="ajax.php"
               method="POST"
               class="help-modal__get-help-form"
               data-need-validation=""
               id="help-form"
+
             >
               <div class="help-modal__get-help-form-fields">
                 <div class="help-modal__get-help-form-field">
@@ -208,6 +209,9 @@
                 <button class="help-modal__get-help-form-submit" type="submit">
                   Отправить
                 </button>
+              </div>
+              <div class="help-modal__get-error" style="display: none;">
+
               </div>
             </form>
           </div>
