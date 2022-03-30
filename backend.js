@@ -47,8 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
- 
-
   const thanksForm = document.querySelector("#thanks-form");
 
   if (thanksForm) {
@@ -114,15 +112,13 @@ document.addEventListener("DOMContentLoaded", () => {
               input.classList.add("request-error");
               statuses.forEach((status) => status.classList.remove("shown"));
               statusNotFound.classList.add("shown");
-
-              return;
-            } else {
-              const responseError = {
-                statusText: response.statusText,
-                status: response.status,
-              };
-              throw responseError;
             }
+
+            const responseError = {
+              statusText: response.statusText,
+              status: response.status,
+            };
+            throw responseError;
           }
           return response.json();
         })
