@@ -393,8 +393,7 @@ body:not(.loaded) .help-modal {
 
 .help-modal__content {
   font-style: normal;
-  font-weight: 700;
-  font-size: 25px;
+  font-size: 14px;
   line-height: 110%;
 }
 
@@ -405,12 +404,12 @@ body:not(.loaded) .help-modal {
 }
 
 .help-modal__content p {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 @media screen and (max-width: 640px) {
   .help-modal__content p {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 }
 
@@ -741,9 +740,8 @@ textarea.help-modal__get-help-form-input {
 
 .help-modal__how-it-works {
   font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 130%;
+  font-size: 14px;
+  line-height: 16px;
   color: #282828;
 }
 
@@ -761,7 +759,7 @@ textarea.help-modal__get-help-form-input {
 .help-modal__how-it-works h6 {
   font-style: normal;
   font-weight: 700;
-  font-size: 27px;
+  font-size: 24px;
   line-height: 150%;
   margin: 0;
   margin-bottom: 15px;
@@ -801,12 +799,12 @@ textarea.help-modal__get-help-form-input {
 
 .help-modal__how-it-works p {
   margin: 0;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 
 @media screen and (max-width: 640px) {
   .help-modal__how-it-works p {
-    margin-bottom: 18px;
+    margin-bottom: 15px;
   }
 }
 
@@ -817,7 +815,7 @@ textarea.help-modal__get-help-form-input {
 .help-modal__how-it-works ul {
   margin: 0;
   padding: 0;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   list-style: none;
 }
 
@@ -841,8 +839,8 @@ textarea.help-modal__get-help-form-input {
 
 .help-modal__how-it-works ul li::before {
   content: "";
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   display: inline-block;
   vertical-align: middle;
