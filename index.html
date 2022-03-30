@@ -41,7 +41,8 @@
           </div>
           <div class="help-modal__choose-step">
             <a href="#get-help" class="help-modal__choose-step-link">
-              Получить<br> помощь
+              Получить<br />
+              помощь
 
               <img
                 src="img/choose-step/2.svg"
@@ -135,7 +136,6 @@
               class="help-modal__get-help-form"
               data-need-validation=""
               id="help-form"
-
             >
               <div class="help-modal__get-help-form-fields">
                 <div class="help-modal__get-help-form-field">
@@ -210,9 +210,7 @@
                   Отправить
                 </button>
               </div>
-              <div class="help-modal__get-error" style="display: none;">
-
-              </div>
+              <div class="help-modal__get-error" style="display: none"></div>
             </form>
           </div>
         </div>
@@ -245,7 +243,8 @@
               <div class="help-modal__check-number-input-wrapper">
                 <input
                   type="tel"
-                  class="help-modal__check-number-input js-numeric-input"
+                  class="help-modal__check-number-input"
+                  data-check-url="https://api.yardam.dev.isitdikov.ru/orders"
                 />
                 <div class="help-modal__check-number-status js-status-found">
                   Даритель найден!
@@ -420,6 +419,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="debounce.js"></script>
     <script src="scrollLock.js"></script>
     <script src="app.js"></script>
     <script src="backend.js"></script>

@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+ 
+
   const thanksForm = document.querySelector("#thanks-form");
 
   if (thanksForm) {
@@ -59,16 +62,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const statuses = [statusFound, statusError, statusNotFound];
 
+    const dataCheckUrl = input.getAttribute("data-check-url");
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
+
       if ($(form).parsley().isValid()) {
-        form.reset();
-        $(form).parsley().reset();
-        window.openModal("#thanks-success");
+        const url = form.action;
+        const formData = new FormData(form);
+
+        fetch(url, {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw response;
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Data", data);
+            form.reset();
+            statuses.forEach((status) => status.classList.remove("shown"));
+            $(form).parsley().reset();
+            window.openModal("#thanks-success");
+          })
+          .catch((err) => {
+            console.error(err);
+            statuses.forEach((status) => status.classList.remove("shown"));
+            statusError.classList.add("shown");
+          });
       }
     });
 
-    input.addEventListener("input", () => {
+    const checkNumber = () => {
       if (!input.value.trim()) {
         submitBtn.disabled = true;
         input.classList.remove("request-error");
@@ -76,12 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const formData = new FormData(form);
-
-      const url = form.action;
-      fetch(url, {
-        method: "POST",
-        body: formData,
+      fetch(`${dataCheckUrl}/${input.value.trim()}`, {
+        method: "GET",
       })
         .then((response) => {
           if (!response.ok) {
@@ -117,6 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
           statusError.classList.add("shown");
           console.error(err);
         });
-    });
+    };
+
+    input.addEventListener("input", debounce(checkNumber, 300));
   }
 });
