@@ -1,4 +1,5 @@
-.help-btn {
+.help-btn,
+.main_menu ul li a.help-btn {
   background-color: #c6efd8;
   color: #27ae60;
   border-radius: 12px;
@@ -12,12 +13,15 @@
   font-family: sans-serif;
 }
 
-.help-btn:hover, .help-btn:active {
+.help-btn:hover, .help-btn:active,
+.main_menu ul li a.help-btn:hover,
+.main_menu ul li a.help-btn:active {
   color: #27ae60;
   text-decoration: none;
 }
 
-.help-btn:focus {
+.help-btn:focus,
+.main_menu ul li a.help-btn:focus {
   color: #27ae60;
   text-decoration: none;
 }
