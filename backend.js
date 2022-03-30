@@ -102,40 +102,54 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      fetch(`${dataCheckUrl}/${input.value.trim()}`, {
-        method: "GET",
-      })
+      axios
+        .get(`${dataCheckUrl}/${input.value.trim()}`)
         .then((response) => {
-          if (!response.ok) {
-            if (response.status == 404) {
-              submitBtn.disabled = true;
-              input.classList.add("request-error");
-              statuses.forEach((status) => status.classList.remove("shown"));
-              statusNotFound.classList.add("shown");
-            }
-
-            const responseError = {
-              statusText: response.statusText,
-              status: response.status,
-            };
-            throw responseError;
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
+          console.log(response.data);
 
           submitBtn.disabled = false;
           input.classList.remove("request-error");
           statuses.forEach((status) => status.classList.remove("shown"));
           statusFound.classList.add("shown");
         })
-        .catch((err) => {
-          submitBtn.disabled = true;
-          input.classList.add("request-error");
-          statuses.forEach((status) => status.classList.remove("shown"));
-          statusError.classList.add("shown");
-          console.error(err);
+        .catch((error) => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+
+            if (error.response.status == 404) {
+              submitBtn.disabled = true;
+              input.classList.add("request-error");
+              statuses.forEach((status) => status.classList.remove("shown"));
+              statusNotFound.classList.add("shown");
+            } else {
+              submitBtn.disabled = true;
+              input.classList.add("request-error");
+              statuses.forEach((status) => status.classList.remove("shown"));
+              statusError.classList.add("shown");
+            }
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            submitBtn.disabled = true;
+            input.classList.add("request-error");
+            statuses.forEach((status) => status.classList.remove("shown"));
+            statusError.classList.add("shown");
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+
+            submitBtn.disabled = true;
+            input.classList.add("request-error");
+            statuses.forEach((status) => status.classList.remove("shown"));
+            statusError.classList.add("shown");
+            console.error("Error", error.message);
+          }
+          console.error(error.config);
         });
     };
 
