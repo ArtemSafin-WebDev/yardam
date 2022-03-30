@@ -61,33 +61,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const statuses = [statusFound, statusError, statusNotFound];
 
     const dataCheckUrl = input.getAttribute("data-check-url");
+    const errorContainer = thanksForm.querySelector('.help-modal__get-error');
 
+    console.log('Error container', errorContainer)
     form.addEventListener("submit", (event) => {
       event.preventDefault();
 
       if ($(form).parsley().isValid()) {
         const url = form.action;
         const formData = new FormData(form);
-
-        fetch(url, {
-          method: "POST",
-          body: formData,
+      
+        axios({
+          method: "post",
+          url,
+          data: formData,
         })
           .then((response) => {
-            if (!response.ok) {
-              throw response;
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log("Data", data);
+            console.log("Data", response.data);
             form.reset();
             statuses.forEach((status) => status.classList.remove("shown"));
             $(form).parsley().reset();
+          
             window.openModal("#thanks-success");
           })
-          .catch((err) => {
-            console.error(err);
+          .catch((error) => {
+            console.error(error);
             statuses.forEach((status) => status.classList.remove("shown"));
             statusError.classList.add("shown");
           });
